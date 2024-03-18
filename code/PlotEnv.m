@@ -1,0 +1,77 @@
+function PlotEnv(original_data,num_agent,num_neighbor,is_static_obseved_position)
+target_traj = original_data.target.p;
+agent_traj = original_data.agent.p;
+delta_width = 0.4;
+plot_width_1 = 0.38;
+plot_hight = 0.4;
+delta_h = 0.45;
+subplot_position = [0*delta_width+0.1,1*0.15+delta_h,plot_width_1,plot_hight;
+                    1*delta_width+0.1,1*0.15+delta_h,plot_width_1,plot_hight; 
+                    0.1,              0.15,          plot_width_1,plot_hight;
+                    1*delta_width+0.1,0.15,          plot_width_1,plot_hight;                   
+                    2*delta_width+0.1,delta_h,plot_width_1,plot_hight;
+                    5*delta_width+0.1,delta_h,plot_width_1,plot_hight];
+figure(5)
+for i = 1:4
+subplot('position',subplot_position(i,:))
+hold off
+if is_static_obseved_position
+    G(1) = plot3(agent_traj(1:3:end,1),agent_traj(2:3:end,1),agent_traj(3:3:end,1),'o','color',[0.2,0.6,0.4],'LineWidth',2);
+    hold on
+    G(2) = plot3(target_traj(1,1),target_traj(2,1),target_traj(3,1),'o','color',[0.00,0.45,0.74],'LineWidth',2);
+    G(3) = plot3(target_traj(1,end),target_traj(2,end),target_traj(3,end),'^','color',[0.00,0.45,0.74],'LineWidth',2);
+else
+    G(1) = plot3(agent_traj(1:3:end,1),agent_traj(2:3:end,1),agent_traj(3:3:end,1),'o','color',[0.2,0.6,0.4],'LineWidth',2);
+    hold on
+    G(2) = plot3(target_traj(1,1),target_traj(2,1),target_traj(3,1),'o','color',[0.00,0.45,0.74],'LineWidth',2);
+    G(3) = plot3(agent_traj(1:3:end,end),agent_traj(2:3:end,end),agent_traj(3:3:end,end),'^','color',[0.2,0.6,0.4],'LineWidth',2);
+    G(4) = plot3(target_traj(1,end),target_traj(2,end),target_traj(3,end),'^','color',[0.00,0.45,0.74],'LineWidth',2);
+    for j = 1:num_agent
+        G(5) = plot3(agent_traj(j*3-2,:),agent_traj(j*3-1,:),agent_traj(j*3,:),'-','color',[0.2,0.6,0.4],'LineWidth',1);
+    end
+end
+hold on
+G(6) = plot3(target_traj(1,:),target_traj(2,:),target_traj(3,:),'-','color',[0.00,0.45,0.74],'LineWidth',1);
+
+
+
+axis equal
+
+if i==1
+    observer_p = reshape(original_data.agent.p(:,1),3,num_agent);
+    neighbor_secq = reshape(original_data.agent.neighbor_secq(:,4),num_agent,num_agent);
+    for j = 1:num_agent
+        agentj_p = observer_p(:,j);
+        for k = 1:num_neighbor
+            if neighbor_secq(k+1,j)==0
+                continue
+            end
+            agentk_p =  observer_p(:,neighbor_secq(k+1,j));
+            line = (agentk_p - agentj_p);
+            line = line/norm(line)*20;
+            G(7) = quiver3(agentj_p(1),agentj_p(2),agentj_p(3),line(1),line(2),line(3),'-','color',[1,0.4,0],'LineWidth',1,'MaxHeadSize',0.8);
+        end
+    end
+    if ~is_static_obseved_position
+    legend(G,'start pos of observers','start pos of target', ...
+    'end pos of observers','end pos of target', ...
+    'true traj of observers','true traj of target','links', ...
+    'numcolumns',5,'position',[-0.028081996478948,0.005820092518101,0.925604463732176,0.107024336283186],'color','none','edgecolor','none','FontSize',20)
+    else 
+    legend('pos of observer','start pos of target', ...
+    'end pos of target', ...
+    'true traj of target','links', ...
+    'numcolumns',5,'position',[-0.028081996478948,0.005820092518101,0.925604463732176,0.107024336283186],'color','none','edgecolor','none','FontSize',20)
+    end    
+title('Communication Graph','Position',[13.5,20,45])
+end
+% xtxt = xlabel('X (m)','Interpreter','latex');
+% set(xtxt,'Interpreter','latex');
+% ytxt = ylabel('Y (m)','Interpreter','latex');
+% set(ytxt,'Interpreter','latex');
+% ztxt = zlabel('Z (m)','Interpreter','latex');
+% set(ztxt,'Interpreter','latex');
+set(gca,'FontName','Times New Roman',"FontSize",20)
+
+end
+
