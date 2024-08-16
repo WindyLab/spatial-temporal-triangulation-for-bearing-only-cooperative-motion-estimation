@@ -5,6 +5,10 @@
     <img src="https://img.shields.io/badge/arXiv-paper?style=socia&logo=arxiv&logoColor=white&labelColor=grey&color=blue"></a>
   <a href="https://arxiv.org/pdf/2310.15846.pdf">
     <img src="https://img.shields.io/badge/Paper-blue?logo=googledocs&logoColor=white&labelColor=grey&color=blue"></a>
+  <a href="https://www.bilibili.com/video/BV1dw411B7RP/?spm_id_from=333.999.0.0&vd_source=0eec9f8ad388935277d70e12aac978ba">
+    <img src="https://img.shields.io/badge/Video-blue?logo=bilibili&logoColor=white&labelColor=grey&color=blue"></a>
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
 </p>
 </div>
 
