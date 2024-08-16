@@ -14,7 +14,7 @@
 
 https://github.com/user-attachments/assets/e9544efc-7465-48f1-946c-db432d989c56
 
-This is the repository for the paper "Optimal Spatial-Temporal Triangulation for Bearing-Only Cooperative Motion Estimation". This paper is conditionally accepted by Automatica. 
+This is the repository for the paper "Optimal Spatial-Temporal Triangulation for Bearing-Only Cooperative Motion Estimation".
 
 In this paper, we propose a distributed bearing-only target state estimation algorithm that can estimate a moving target's state with bearing measurements in 3D space.
 
