@@ -34,6 +34,13 @@ filters_params.stt.gamma2 =6;
 filters_params.stt.c = 2;
 filters_params.stt.A = [eye(3),eye(3)*dt;zeros(3),eye(3)];
 filters_params.stt.comm_cost_time = comm_cost_time*(3+3+6); % p,g,x
+filters_params.castt.r1 = filters_params.stt.r1;
+filters_params.castt.gamma1 = filters_params.stt.gamma1;
+filters_params.castt.gamma2 = filters_params.stt.gamma2;
+filters_params.castt.c = filters_params.stt.c;
+filters_params.castt.A = filters_params.stt.A;
+filters_params.castt.comm_cost_time = filters_params.stt.comm_cost_time;
+
 
 filters_params.sttr.r1 = bearing_noise^2*10.3286341760749;
 filters_params.sttr.r2 = bearing_rate_noise^2*1042.4;
@@ -78,6 +85,13 @@ filters_params.stt.gamma2 =6;
 filters_params.stt.c = 2;
 filters_params.stt.A = [eye(3),eye(3)*dt;zeros(3),eye(3)];
 filters_params.stt.comm_cost_time = comm_cost_time*(3+3+6); % p,g,x
+filters_params.castt.r1 = filters_params.stt.r1;
+filters_params.castt.gamma1 = filters_params.stt.gamma1;
+filters_params.castt.gamma2 = filters_params.stt.gamma2;
+filters_params.castt.c = filters_params.stt.c;
+filters_params.castt.A = filters_params.stt.A;
+filters_params.castt.comm_cost_time = filters_params.stt.comm_cost_time;
+
 
 filters_params.sttr.r1 = bearing_noise^2*10.3286341760749;
 filters_params.sttr.r2 = bearing_rate_noise^2*1042.4;
@@ -121,6 +135,13 @@ filters_params.stt.gamma2 =6;
 filters_params.stt.c = 2;
 filters_params.stt.A = [eye(3),eye(3)*dt;zeros(3),eye(3)];
 filters_params.stt.comm_cost_time = comm_cost_time*(3+3+6); % p,g,x
+filters_params.castt.r1 = filters_params.stt.r1;
+filters_params.castt.gamma1 = filters_params.stt.gamma1;
+filters_params.castt.gamma2 = filters_params.stt.gamma2;
+filters_params.castt.c = filters_params.stt.c;
+filters_params.castt.A = filters_params.stt.A;
+filters_params.castt.comm_cost_time = filters_params.stt.comm_cost_time;
+
 
 filters_params.sttr.r1 = bearing_noise^2*10.3286341760749;
 filters_params.sttr.r2 = bearing_rate_noise^2*1042.4;
