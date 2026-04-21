@@ -77,12 +77,25 @@ for i = 1:num_agent
 
         % Use covariance form R_jk = sigma^2_jk I  --> lower quality => larger variance => lower weight
         Rinv_jk = eye(3)/sigma2_jk;
+        Rinv_fixed = eye(3)*conf.fixed_Rinv_scale;
         P_g = eye(3)-g*g';
         H1 =  [P_g,zeros(3)];
         z1 =  P_g*position;
 
-        S = S + H1'*Rinv_jk*H1;
-        y = y + H1'*Rinv_jk*z1;
+        switch upper(conf.ablation_mode)
+            case "A" % only e_meas uses adaptive weight
+                W_S = Rinv_fixed;
+                W_y = Rinv_jk;
+            case "B" % only S_{i,k} uses adaptive weight
+                W_S = Rinv_jk;
+                W_y = Rinv_fixed;
+            otherwise  % "C": both terms use adaptive weight
+                W_S = Rinv_jk;
+                W_y = Rinv_jk;
+        end
+
+        S = S + H1'*W_S*H1;
+        y = y + H1'*W_y*z1;
     end
 
     e_meas = c*(y - S*x);

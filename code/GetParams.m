@@ -55,6 +55,9 @@ filters_params.castt.conf.sigma0 = sqrt(filters_params.castt.r1);
 filters_params.castt.conf.sigma_good = filters_params.castt.conf.sigma0;
 filters_params.castt.conf.sigma_bad = 3*filters_params.castt.conf.sigma0;
 
+filters_params.castt.conf.ablation_mode = "C"; % A|B|C
+filters_params.castt.conf.fixed_Rinv_scale = 1/filters_params.castt.r1;
+
 
 filters_params.sttr.r1 = bearing_noise^2*10.3286341760749;
 filters_params.sttr.r2 = bearing_rate_noise^2*1042.4;
@@ -120,6 +123,9 @@ filters_params.castt.conf.sigma0 = sqrt(filters_params.castt.r1);
 filters_params.castt.conf.sigma_good = filters_params.castt.conf.sigma0;
 filters_params.castt.conf.sigma_bad = 3*filters_params.castt.conf.sigma0;
 
+filters_params.castt.conf.ablation_mode = "C"; % A|B|C
+filters_params.castt.conf.fixed_Rinv_scale = 1/filters_params.castt.r1;
+
 
 filters_params.sttr.r1 = bearing_noise^2*10.3286341760749;
 filters_params.sttr.r2 = bearing_rate_noise^2*1042.4;
@@ -183,6 +189,9 @@ filters_params.castt.conf.e_cam = [1;0;0];
 filters_params.castt.conf.sigma0 = sqrt(filters_params.castt.r1);
 filters_params.castt.conf.sigma_good = filters_params.castt.conf.sigma0;
 filters_params.castt.conf.sigma_bad = 3*filters_params.castt.conf.sigma0;
+
+filters_params.castt.conf.ablation_mode = "C"; % A|B|C
+filters_params.castt.conf.fixed_Rinv_scale = 1/filters_params.castt.r1;
 
 
 filters_params.sttr.r1 = bearing_noise^2*10.3286341760749;
