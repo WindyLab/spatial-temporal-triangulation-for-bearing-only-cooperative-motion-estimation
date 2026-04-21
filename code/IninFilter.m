@@ -13,4 +13,10 @@ for i = 1:num_agent
 
     filters.stt.agent(i).M = eye(6);
     filters.castt.agent(i).M = eye(6);
+
+    % confidence-aware states for per-observer/per-time quality adaptation
+    filters.castt.agent(i).q_bar = ones(num_agent,1);
+    filters.castt.agent(i).n_hit = zeros(num_agent,1);
+    filters.castt.agent(i).n_lost = zeros(num_agent,1);
+    filters.castt.agent(i).sigma2 = ones(num_agent,1);
 end
