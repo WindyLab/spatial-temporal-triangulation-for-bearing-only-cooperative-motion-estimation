@@ -19,11 +19,26 @@ dt = 0.1;
 total_time_step = total_time/dt;
 
 position_noise = 0.1;
-bearing_noise = 0.1;
+experiment_id = 2; % 1| legacy (task2 before)  2| bad-observation injection (task2)
+
+switch experiment_id
+    case 1
+        bearing_noise_legacy = 0.1;
+        bearing_noise_assumed = bearing_noise_legacy;
+        bearing_noise_good = bearing_noise_legacy;
+        bearing_noise_bad = bearing_noise_legacy;
+        p_bad = 0;
+    otherwise
+        bearing_noise_assumed = 0.1;
+        bearing_noise_good = 0.1;
+        bearing_noise_bad = 0.3;
+        p_bad = 0.1;
+end
+
 bearing_rate_noise = 0.01;
 camera_angluar_rate_noise = 0.01;
 
-filters_params = GetParams(Noise_model,comm_cost_time,dt,bearing_noise,max(camera_angluar_rate_noise,bearing_rate_noise));
+filters_params = GetParams(Noise_model,comm_cost_time,dt,bearing_noise_assumed,max(camera_angluar_rate_noise,bearing_rate_noise));
 
 % get original data
 if is_same_obseved_position
@@ -33,13 +48,13 @@ if is_same_obseved_position
     for i = 1:num_sim
         original_data(i).agent = original_data(1).agent;
         original_data(i).target = original_data(1).target;
-        original_data(i).measurement = GetOriginalData(position_noise,bearing_noise,bearing_rate_noise,camera_angluar_rate_noise,num_agent,total_time_step,original_data(i).agent,original_data(i).target);
+        original_data(i).measurement = GetOriginalData(position_noise,bearing_noise_good,bearing_noise_bad,p_bad,bearing_rate_noise,camera_angluar_rate_noise,num_agent,total_time_step,original_data(i).agent,original_data(i).target);
     end
 else
     for i = 1:num_sim
         original_data(i).agent = GetAgentState(dt,total_time_step,num_neighbor,num_agent,env_r,is_static_obseved_position,is_periodic_connection);
         original_data(i).target = GetTargetState(dt,total_time_step,target_motion);
-        original_data(i).measurement = GetOriginalData(position_noise,bearing_noise,bearing_rate_noise,camera_angluar_rate_noise,num_agent,total_time_step,original_data(i).agent,original_data(i).target);
+        original_data(i).measurement = GetOriginalData(position_noise,bearing_noise_good,bearing_noise_bad,p_bad,bearing_rate_noise,camera_angluar_rate_noise,num_agent,total_time_step,original_data(i).agent,original_data(i).target);
     end
 end
 
@@ -68,5 +83,3 @@ end
 t_secq = dt:dt:total_time;
 PlotEstTraj(num_sim,num_agent,data_save);
 [error_struct,error_mean] = AnalysisData(t_secq,num_sim,num_agent,data_save,original_data(1).target);
-
-

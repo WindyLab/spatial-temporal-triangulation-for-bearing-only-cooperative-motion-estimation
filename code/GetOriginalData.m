@@ -1,4 +1,4 @@
-function measurement = GetOriginalData(position_noise,bearing_noise,bearing_rate_noise,camera_angluar_rate_noise,num_agent,total_time_step,agent,target)
+function measurement = GetOriginalData(position_noise,bearing_noise_good,bearing_noise_bad,p_bad,bearing_rate_noise,camera_angluar_rate_noise,num_agent,total_time_step,agent,target)
 
 for i = 1:total_time_step
     target_p = target.p(:,i);
@@ -21,7 +21,12 @@ for i = 1:total_time_step
         rand_v = rand(3,1)-0.5;
         rand_v = rand_v/norm(rand_v);
         n_g_v = cross(g_j,rand_v);
-        nu = randn(1)*bearing_noise;
+        is_bad = rand(1) < p_bad;
+        sigma_jk = bearing_noise_good;
+        if is_bad
+            sigma_jk = bearing_noise_bad;
+        end
+        nu = randn(1)*sigma_jk;
         w = cos(nu/2);
         x = n_g_v(1)*sin(nu/2);
         y = n_g_v(2)*sin(nu/2);
