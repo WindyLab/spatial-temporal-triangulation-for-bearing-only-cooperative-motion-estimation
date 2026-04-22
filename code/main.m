@@ -19,10 +19,22 @@ dt = 0.1;
 total_time_step = total_time/dt;
 
 position_noise = 0.1;
-bearing_noise_assumed = 0.1;
-bearing_noise_good = 0.1;
-bearing_noise_bad = 0.3;
-p_bad = 0.1;
+experiment_id = 2; % 1| legacy (task2 before)  2| bad-observation injection (task2)
+
+switch experiment_id
+    case 1
+        bearing_noise_legacy = 0.1;
+        bearing_noise_assumed = bearing_noise_legacy;
+        bearing_noise_good = bearing_noise_legacy;
+        bearing_noise_bad = bearing_noise_legacy;
+        p_bad = 0;
+    otherwise
+        bearing_noise_assumed = 0.1;
+        bearing_noise_good = 0.1;
+        bearing_noise_bad = 0.3;
+        p_bad = 0.1;
+end
+
 bearing_rate_noise = 0.01;
 camera_angluar_rate_noise = 0.01;
 
@@ -71,4 +83,3 @@ end
 t_secq = dt:dt:total_time;
 PlotEstTraj(num_sim,num_agent,data_save);
 [error_struct,error_mean] = AnalysisData(t_secq,num_sim,num_agent,data_save,original_data(1).target);
-
