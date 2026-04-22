@@ -1,7 +1,4 @@
-function filters_params = GetParams(Noise_model,comm_cost_time,dt,bearing_noise, bearing_rate_noise, castt_conf_override)
-if nargin < 6
-    castt_conf_override = struct();
-end
+function filters_params = GetParams(Noise_model,comm_cost_time,dt,bearing_noise, bearing_rate_noise)
 switch Noise_model
     case 0
 filters_params.ckf.r2 = bearing_rate_noise^2* 2.54101;
@@ -205,16 +202,4 @@ filters_params.sttr.c1 = 2;
 filters_params.sttr.c2 = 2;
 filters_params.sttr.A = [eye(3),eye(3)*dt;zeros(3),eye(3)];
 filters_params.sttr.comm_cost_time = comm_cost_time*(3+3+3+3+6);% p,g,v,gdot,x
-end
-filters_params = apply_castt_override(filters_params,castt_conf_override);
-
-function filters_params = apply_castt_override(filters_params,castt_conf_override)
-if ~isstruct(castt_conf_override)
-    return
-end
-override_fields = fieldnames(castt_conf_override);
-for i = 1:length(override_fields)
-    key = override_fields{i};
-    filters_params.castt.conf.(key) = castt_conf_override.(key);
-end
 end
