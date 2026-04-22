@@ -207,6 +207,7 @@ filters_params.sttr.A = [eye(3),eye(3)*dt;zeros(3),eye(3)];
 filters_params.sttr.comm_cost_time = comm_cost_time*(3+3+3+3+6);% p,g,v,gdot,x
 end
 filters_params = apply_castt_override(filters_params,castt_conf_override);
+end
 
 function filters_params = apply_castt_override(filters_params,castt_conf_override)
 if ~isstruct(castt_conf_override)
